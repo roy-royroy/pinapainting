@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pina Painting & Remodeling | Indianapolis Home Improvement</title>
+  <meta name="description" content="Indianapolis's trusted painting and remodeling specialists. Indoor/outdoor painting, drywall, carpentry, flooring, electrical, and plumbing. Call 317-828-3233 for a free estimate." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       RESET & TOKENS
+    ═══════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Brand */
+      --navy:       #18263A;
+      --navy-mid:   #1E2F45;
+      --navy-soft:  #243549;
+      --amber:      #C8720A;
+      --amber-lt:   #E0881A;
+      --amber-glow: rgba(200, 114, 10, 0.25);
+      --amber-tint: #FEF0DE;
+      --cream:      #FDFAF6;
+      --fog:        #F1EDE7;
+      --stone:      #7D7166;
+      --stone-lt:   #A09488;
+      --ink:        #1A1410;
+
+      /* Typography */
+      --ff-head: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --ff-body: 'DM Sans', system-ui, sans-serif;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--ff-body);
+      color: var(--ink);
+      background: var(--cream);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ═══════════════════════════════════════════════════════════
+       REVEAL ANIMATIONS
+    ═══════════════════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rd1 { transition-delay: 0.08s; }
+    .rd2 { transition-delay: 0.16s; }
+    .rd3 { transition-delay: 0.24s; }
+    .rd4 { transition-delay: 0.32s; }
+    .rd5 { transition-delay: 0.40s; }
+
+    /* ═══════════════════════════════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════════════════════════════ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--ff-body); font-weight: 600;
+      letter-spacing: 0.02em; border-radius: 3px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn:active { transform: translateY(1px) !important; }
+
+    .btn-primary {
+      padding: 0.875rem 2rem;
+      background: var(--amber); color: #fff;
+      font-size: 0.9375rem;
+      box-shadow: 0 4px 20px rgba(200, 114, 10, 0.35);
+    }
+    .btn-primary:hover {
+      background: var(--amber-lt);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(200, 114, 10, 0.45);
+    }
+
+    .btn-ghost-white {
+      padding: 0.8125rem 1.875rem;
+      border: 1.5px solid rgba(255,255,255,0.55); color: #fff;
+      font-size: 0.9375rem;
+    }
+    .btn-ghost-white:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.85);
+    }
+
+    .btn-white-solid {
+      padding: 0.9375rem 2.125rem;
+      background: #fff; color: var(--amber);
+      font-size: 1rem;
+    }
+    .btn-white-solid:hover { background: var(--cream); transform: translateY(-2px); }
+
+    /* ═══════════════════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════════════════ */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 88px;
+      padding: 0 clamp(1.5rem, 5vw, 3.5rem);
+      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    #nav.scrolled {
+      background: rgba(24, 38, 58, 0.96);
+      backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.05), 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    .nav-logo { display: flex; align-items: center; flex-shrink: 0; }
+    .nav-logo-img {
+      height: 96px; width: auto;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover .nav-logo-img { opacity: 0.85; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2.75rem;
+    }
+    .nav-links a {
+      font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: rgba(255,255,255,0.65);
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--amber-lt);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s var(--ease-out);
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; flex-shrink: 0; }
+    .nav-phone {
+      font-size: 0.875rem; font-weight: 600;
+      color: rgba(255,255,255,0.8); letter-spacing: 0.02em;
+    }
+    .nav-phone:hover { color: var(--amber-lt); }
+    .nav-cta {
+      padding: 0.5625rem 1.25rem;
+      background: var(--amber); color: #fff;
+      font-size: 0.8125rem; font-weight: 600;
+      letter-spacing: 0.03em; border-radius: 3px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--amber-lt); transform: translateY(-1px); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px; }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed;
+      top: 70px; left: 0; right: 0;
+      background: var(--navy); z-index: 999;
+      padding: 1.25rem clamp(1.5rem, 5vw, 3.5rem) 2rem;
+      transform: translateY(-6px); opacity: 0;
+      transition: transform 0.3s var(--ease-out), opacity 0.3s;
+      pointer-events: none;
+    }
+    .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .mobile-menu a {
+      display: block; padding: 0.9375rem 0;
+      font-size: 1.0625rem; font-weight: 500; color: rgba(255,255,255,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .mobile-menu-actions {
+      margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .mobile-menu-phone {
+      font-size: 1.25rem; font-weight: 600; color: var(--amber-lt);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       HERO — full-bleed slider
+    ═══════════════════════════════════════════════════════════ */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+
+    /* ── Full-bleed before/after slider (sits behind everything) */
+    .ba-slider {
+      position: absolute; inset: 0;
+      cursor: ew-resize; user-select: none; z-index: 0;
+    }
+
+    .ba-before {
+      position: absolute; inset: 0;
+    }
+    .ba-before img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center center;
+    }
+
+    .ba-after-wrap {
+      position: absolute; top: 0; left: 0; bottom: 0;
+      width: 50%; overflow: hidden;
+    }
+    /* After image is sized to the FULL slider via JS, not the clipped wrapper —
+       this keeps the zoom level identical to the before image regardless of handle position */
+    .ba-after-wrap img {
+      position: absolute; top: 0; left: 0;
+      object-fit: cover; object-position: center center;
+    }
+
+    /* dark gradient overlay over the slider */
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        linear-gradient(to top,  rgba(10,18,28,0.92) 0%, rgba(10,18,28,0.55) 40%, rgba(10,18,28,0.2) 75%, transparent 100%),
+        linear-gradient(to right, rgba(10,18,28,0.3) 0%, transparent 60%);
+    }
+
+    .ba-line {
+      position: absolute; top: 0; bottom: 0;
+      left: 50%; transform: translateX(-50%);
+      width: 2px; background: rgba(255,255,255,0.85);
+      z-index: 3; pointer-events: none;
+    }
+    .ba-handle-outer {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 0 0 3px rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .ba-handle-outer svg { width: 22px; height: 22px; color: var(--navy); }
+
+    /* ── Content block overlaid on the slider ── */
+    .hero-content {
+      position: relative; z-index: 4;
+      width: 100%;
+      padding: clamp(3rem, 5vw, 5rem) clamp(2rem, 7vw, 7rem) clamp(4rem, 6vw, 6rem);
+      display: flex; flex-direction: column; align-items: flex-start;
+      /* Pass pointer events through the container so the slider behind can be dragged,
+         but restore them on interactive children (buttons, links) */
+      pointer-events: none;
+    }
+    .hero-content a, .hero-content button { pointer-events: auto; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.625rem;
+      padding: 0.4375rem 1rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 100px; backdrop-filter: blur(6px);
+      font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.75);
+      width: fit-content; margin-bottom: 1.75rem;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--amber-lt);
+      box-shadow: 0 0 8px var(--amber-lt);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.75); }
+    }
+
+    .hero-heading {
+      font-family: var(--ff-head);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 600; line-height: 1.04; letter-spacing: -0.01em;
+      color: #fff; margin-bottom: 1.25rem;
+      max-width: 700px;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.4);
+    }
+    .hero-heading em { font-style: italic; color: var(--amber-lt); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      line-height: 1.7; color: rgba(255,255,255,0.65);
+      max-width: 480px; margin-bottom: 2.25rem;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.5);
+    }
+
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; }
+
+    .hero-stars { display: flex; align-items: center; gap: 0.75rem; }
+    .hero-stars-icons { display: flex; gap: 2px; }
+    .hero-stars-icons svg { width: 15px; height: 15px; fill: #FBBF24; }
+    .hero-stars-text { font-size: 0.8125rem; color: rgba(255,255,255,0.55); line-height: 1.4; }
+    .hero-stars-text strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+    /* hint text at bottom-right */
+    .hero-hint {
+      position: absolute; bottom: 2rem; right: 2rem; z-index: 4;
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45);
+      display: flex; align-items: center; gap: 0.5rem;
+      pointer-events: none;
+    }
+    .hero-hint svg { width: 14px; height: 14px; }
+
+    /* Labels live directly in #hero, above the overlay (z-index 5) */
+    .ba-label {
+      position: absolute; top: 6.5rem; z-index: 5;
+      font-family: var(--ff-body); font-size: 0.75rem;
+      font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.5rem 1.125rem; border-radius: 3px;
+      pointer-events: none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    }
+    .ba-label-b { left: 1.75rem; background: rgba(15, 25, 40, 0.88); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+    .ba-label-a { right: 1.75rem; background: var(--amber); color: #fff; }
+
+    /* ═══════════════════════════════════════════════════════════
+       TRUST BAR
+    ═══════════════════════════════════════════════════════════ */
+    #trust {
+      background: var(--navy-mid);
+      padding: clamp(2.25rem, 4vw, 3.25rem) clamp(1.5rem, 5vw, 3.5rem);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .trust-inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    }
+    .trust-item {
+      text-align: center; position: relative;
+    }
+    .trust-item:not(:last-child)::after {
+      content: '';
+      position: absolute; right: 0; top: 15%; bottom: 15%;
+      width: 1px; background: rgba(255,255,255,0.1);
+    }
+    .trust-num {
+      font-family: var(--ff-head);
+      font-size: clamp(2.25rem, 3.5vw, 3rem);
+      font-weight: 600; line-height: 1;
+      color: var(--amber-lt); letter-spacing: -0.02em;
+    }
+    .trust-label {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      margin-top: 0.5rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION LAYOUT HELPERS
+    ═══════════════════════════════════════════════════════════ */
+    .section-pad { padding: clamp(5rem, 8vw, 7.5rem) clamp(1.5rem, 5vw, 3.5rem); }
+    .container { max-width: 1120px; margin: 0 auto; }
+
+    .section-kicker {
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--ff-head);
+      font-size: clamp(2.125rem, 3.5vw, 3rem);
+      font-weight: 600; line-height: 1.1; letter-spacing: -0.015em;
+      color: var(--navy);
+    }
+    .section-title-white { color: #fff; }
+    .section-body {
+      font-size: 1.0625rem; line-height: 1.72;
+      color: var(--stone); max-width: 520px; margin-top: 1rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SERVICES
+    ═══════════════════════════════════════════════════════════ */
+    #services { background: var(--cream); }
+    .services-head { text-align: center; margin-bottom: 3.75rem; }
+    .services-head .section-body { margin: 1rem auto 0; }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; border: 1px solid #DDD7CE; border-radius: 6px; overflow: hidden;
+    }
+    .svc-card {
+      padding: clamp(1.75rem, 2.5vw, 2.375rem);
+      background: #fff; border-right: 1px solid #DDD7CE; border-bottom: 1px solid #DDD7CE;
+      display: flex; flex-direction: column; gap: 0.875rem;
+      position: relative; overflow: hidden;
+      transition: background 0.25s;
+    }
+    .svc-card:nth-child(3n) { border-right: none; }
+    .svc-card:nth-last-child(-n+3) { border-bottom: none; }
+    .svc-card::after {
+      content: ''; position: absolute;
+      left: 0; bottom: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--amber), var(--amber-lt));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s var(--ease-out);
+    }
+    .svc-card:hover { background: var(--cream); }
+    .svc-card:hover::after { transform: scaleX(1); }
+
+    .svc-icon { width: 44px; height: 44px; color: var(--amber); flex-shrink: 0; }
+    .svc-name {
+      font-family: var(--ff-head); font-size: 1.25rem;
+      font-weight: 600; color: var(--navy);
+    }
+    .svc-desc { font-size: 0.9375rem; line-height: 1.65; color: var(--stone); }
+
+    /* ═══════════════════════════════════════════════════════════
+       PROCESS
+    ═══════════════════════════════════════════════════════════ */
+    #process { background: var(--navy); }
+    .process-head { text-align: center; margin-bottom: 4rem; }
+    .process-head .section-body { color: rgba(255,255,255,0.45); margin: 0.875rem auto 0; }
+
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute; top: 24px; left: calc(12.5% + 1.5rem); right: calc(12.5% + 1.5rem);
+      height: 1px; background: rgba(255,255,255,0.1);
+    }
+
+    .process-step {
+      padding: 0 1.5rem;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; position: relative;
+    }
+    .process-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-head); font-size: 1.125rem; font-weight: 600;
+      color: var(--amber-lt); background: var(--navy-mid);
+      margin-bottom: 1.5rem; position: relative; z-index: 1;
+      flex-shrink: 0;
+    }
+    .process-step-title {
+      font-family: var(--ff-head); font-size: 1.25rem;
+      font-weight: 600; color: #fff; margin-bottom: 0.625rem;
+    }
+    .process-step-body { font-size: 0.9rem; line-height: 1.65; color: rgba(255,255,255,0.4); }
+
+    /* ═══════════════════════════════════════════════════════════
+       WHY US
+    ═══════════════════════════════════════════════════════════ */
+    #why { background: var(--fog); }
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 6rem); align-items: center;
+    }
+
+    .why-features { display: flex; flex-direction: column; gap: 1.375rem; margin-top: 2.5rem; }
+    .why-feat {
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .why-feat-ico {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--amber-tint); flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .why-feat-ico svg { width: 17px; height: 17px; color: var(--amber); }
+    .why-feat-body strong {
+      display: block; font-size: 1.0625rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 0.25rem;
+    }
+    .why-feat-body span { font-size: 0.9375rem; line-height: 1.6; color: var(--stone); }
+
+    .why-card {
+      background: var(--navy); border-radius: 6px;
+      padding: clamp(2.25rem, 3.5vw, 3.25rem); text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .why-card::before {
+      content: ''; position: absolute;
+      top: -80px; right: -80px;
+      width: 240px; height: 240px; border-radius: 50%;
+      background: rgba(200,114,10,0.1);
+    }
+    .why-card-kicker {
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--amber-lt);
+      margin-bottom: 1rem; position: relative;
+    }
+    .why-card-phone {
+      font-family: var(--ff-head);
+      font-size: clamp(1.875rem, 3vw, 2.625rem);
+      font-weight: 600; color: #fff; letter-spacing: -0.01em;
+      margin-bottom: 0.375rem; position: relative;
+    }
+    .why-card-sub { font-size: 0.9rem; color: rgba(255,255,255,0.4); margin-bottom: 2rem; position: relative; }
+    .why-card-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.875rem 2.25rem; background: var(--amber); color: #fff;
+      font-size: 0.9375rem; font-weight: 600; border-radius: 3px;
+      transition: background 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .why-card-cta:hover { background: var(--amber-lt); transform: translateY(-2px); }
+    .why-card-div { width: 40px; height: 1px; background: rgba(255,255,255,0.12); margin: 2rem auto; position: relative; }
+    .why-card-hours { font-size: 0.875rem; color: rgba(255,255,255,0.35); position: relative; }
+    .why-card-hours strong { color: rgba(255,255,255,0.6); font-weight: 600; display: block; margin-bottom: 0.25rem; }
+
+    /* ═══════════════════════════════════════════════════════════
+       GALLERY
+    ═══════════════════════════════════════════════════════════ */
+    #gallery { background: var(--cream); }
+    .gallery-head { text-align: center; margin-bottom: 3.5rem; }
+    .gallery-head .section-body { margin: 0.875rem auto 0; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 260px 200px;
+      gap: 10px;
+    }
+    .g-item { border-radius: 5px; overflow: hidden; position: relative; }
+    .g-item:nth-child(1) { grid-row: span 2; }
+    .g-item:nth-child(4) { grid-column: span 2; }
+
+    .g-tile {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end;
+      padding: 1.375rem; position: relative; overflow: hidden;
+    }
+    .g-tile::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(18,26,38,0.85) 0%, rgba(18,26,38,0.1) 55%, transparent 100%);
+      transition: opacity 0.35s;
+    }
+    .g-tile img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .g-item:hover .g-tile img { transform: scale(1.04); }
+
+    .g-label {
+      position: relative; z-index: 2;
+      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--amber-lt); margin-bottom: 0.3125rem;
+    }
+    .g-title {
+      position: relative; z-index: 2;
+      font-family: var(--ff-head); font-size: 1.25rem; font-weight: 600; color: #fff; line-height: 1.2;
+    }
+
+    /* Color bg tiles for variety */
+    .g-bg-1 { background: linear-gradient(150deg, #2A4060 0%, #18263A 100%); }
+    .g-bg-2 { background: linear-gradient(150deg, #3D2C1E 0%, #221A11 100%); }
+    .g-bg-3 { background: linear-gradient(150deg, #253D27 0%, #152018 100%); }
+    .g-bg-4 { background: linear-gradient(150deg, #40332A 0%, #261E15 100%); }
+
+    /* ═══════════════════════════════════════════════════════════
+       TESTIMONIALS
+    ═══════════════════════════════════════════════════════════ */
+    #testimonials { background: var(--fog); }
+    .testi-head { text-align: center; margin-bottom: 3.5rem; }
+    .testi-head .section-body { margin: 0.875rem auto 0; }
+
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .testi-card {
+      background: #fff; border-radius: 5px;
+      padding: clamp(1.5rem, 2.5vw, 2rem);
+      border: 1px solid #E5DFD8;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .testi-stars { display: flex; gap: 2px; }
+    .testi-stars svg { width: 15px; height: 15px; fill: #FBBF24; }
+    .testi-quote {
+      font-family: var(--ff-head); font-style: italic;
+      font-size: 1.125rem; line-height: 1.6; color: var(--navy);
+      flex: 1;
+    }
+    .testi-author { display: flex; align-items: center; gap: 0.875rem; padding-top: 0.75rem; border-top: 1px solid #EDE8E1; }
+    .testi-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--amber-tint); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-head); font-size: 1.125rem; font-weight: 600; color: var(--amber);
+    }
+    .testi-name { font-size: 0.9375rem; font-weight: 600; color: var(--navy); }
+    .testi-location { font-size: 0.8125rem; color: var(--stone); }
+    .testi-source {
+      display: flex; align-items: center; gap: 0.375rem;
+      font-size: 0.75rem; color: var(--stone-lt); font-weight: 500;
+    }
+    .testi-source svg { width: 14px; height: 14px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       CTA BANNER
+    ═══════════════════════════════════════════════════════════ */
+    #cta-banner {
+      background: var(--amber); padding: clamp(4rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 3.5rem);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    #cta-banner::before {
+      content: ''; position: absolute;
+      top: -120px; left: -120px; width: 400px; height: 400px;
+      border-radius: 50%; background: rgba(255,255,255,0.07);
+    }
+    #cta-banner::after {
+      content: ''; position: absolute;
+      bottom: -80px; right: -80px; width: 280px; height: 280px;
+      border-radius: 50%; background: rgba(255,255,255,0.05);
+    }
+    .cta-banner-title {
+      font-family: var(--ff-head); font-size: clamp(2.25rem, 4vw, 3.25rem);
+      font-weight: 600; color: #fff; line-height: 1.1; letter-spacing: -0.015em;
+      margin-bottom: 1rem; position: relative;
+    }
+    .cta-banner-sub { font-size: 1.0625rem; color: rgba(255,255,255,0.7); margin-bottom: 2.5rem; position: relative; }
+    .cta-banner-actions {
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1.125rem;
+      position: relative;
+    }
+    .cta-banner-link {
+      font-size: 0.9375rem; font-weight: 500;
+      color: rgba(255,255,255,0.8); text-decoration: underline; text-underline-offset: 3px;
+    }
+    .cta-banner-link:hover { color: #fff; }
+
+    /* ═══════════════════════════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════════════════════════ */
+    #contact { background: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(3rem, 6vw, 5.5rem); align-items: start; }
+
+    .contact-form-head { margin-bottom: 2.25rem; }
+    .contact-form-head .section-body { max-width: 100%; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; }
+    .fg { display: flex; flex-direction: column; gap: 0.4375rem; }
+    .fg.full { grid-column: 1 / -1; }
+    .fg label { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; color: var(--navy); }
+    .fg input, .fg select, .fg textarea {
+      padding: 0.75rem 1rem; border: 1.5px solid #CEC7BC; border-radius: 3px;
+      font-family: var(--ff-body); font-size: 0.9375rem;
+      color: var(--ink); background: #fff; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .fg input::placeholder, .fg textarea::placeholder { color: #B2A99E; }
+    .fg input:focus, .fg select:focus, .fg textarea:focus {
+      border-color: var(--amber); box-shadow: 0 0 0 3px rgba(200,114,10,0.1);
+    }
+    .fg input.err, .fg select.err, .fg textarea.err { border-color: #D94040; }
+    .fg textarea { resize: vertical; min-height: 110px; }
+    .fg select {
+      appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237D7166' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;
+    }
+    .form-submit {
+      width: 100%; padding: 0.9375rem; margin-top: 0.25rem;
+      background: var(--amber); color: #fff;
+      font-family: var(--ff-body); font-size: 1rem; font-weight: 600;
+      letter-spacing: 0.02em; border-radius: 3px;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(200,114,10,0.3);
+    }
+    .form-submit:hover { background: var(--amber-lt); transform: translateY(-1px); }
+    .form-success {
+      display: none; padding: 1rem 1.125rem;
+      background: #ECFDF5; border: 1.5px solid #6EE7B7; border-radius: 3px;
+      font-size: 0.9375rem; color: #065F46; margin-top: 0.875rem;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 0; }
+    .contact-info-title {
+      font-family: var(--ff-head); font-size: 1.5rem;
+      font-weight: 600; color: var(--navy); margin-bottom: 1.5rem;
+    }
+    .cinfo-row {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.125rem 0; border-bottom: 1px solid #DDD6CC;
+    }
+    .cinfo-row:last-of-type { border-bottom: none; }
+    .cinfo-ico {
+      width: 40px; height: 40px; border-radius: 50%; background: var(--amber-tint);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .cinfo-ico svg { width: 17px; height: 17px; color: var(--amber); }
+    .cinfo-lbl { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.25rem; }
+    .cinfo-val { font-size: 1.0625rem; font-weight: 600; color: var(--navy); }
+    .cinfo-sub { font-size: 0.875rem; color: var(--stone); margin-top: 0.125rem; }
+
+    .map-ph {
+      margin-top: 1.875rem; border-radius: 5px; overflow: hidden;
+      height: 175px; background: linear-gradient(135deg, #E5E0D8 0%, #D5CEC4 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .map-ph svg { width: 40px; height: 40px; color: #B8AFA6; }
+    .map-ph span { font-size: 0.8rem; font-weight: 600; color: var(--stone); }
+
+    /* ═══════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════ */
+    #footer {
+      background: #0F1C2A;
+      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 3.5rem) 1.75rem;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 3rem; padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      max-width: 1120px; margin: 0 auto;
+    }
+
+    .footer-brand-name {
+      font-family: var(--ff-head); font-size: 1.5rem;
+      font-weight: 600; color: #fff; margin-bottom: 0.25rem;
+    }
+    .footer-brand-sub {
+      font-size: 0.5625rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amber-lt); margin-bottom: 1rem;
+    }
+    .footer-desc { font-size: 0.9375rem; line-height: 1.65; color: rgba(255,255,255,0.35); max-width: 280px; }
+
+    .footer-col-head {
+      font-size: 0.625rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); margin-bottom: 1.25rem;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 0.625rem; }
+    .footer-links a { font-size: 0.9375rem; color: rgba(255,255,255,0.45); transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    .footer-contact-item { margin-bottom: 0.875rem; }
+    .footer-contact-lbl { font-size: 0.625rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .footer-contact-val { font-size: 0.9375rem; color: rgba(255,255,255,0.5); }
+    .footer-contact-val a { transition: color 0.2s; }
+    .footer-contact-val a:hover { color: var(--amber-lt); }
+
+    .footer-bottom {
+      max-width: 1120px; margin: 1.75rem auto 0;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.22); }
+    .footer-btm-links { display: flex; gap: 1.5rem; }
+    .footer-btm-links a { font-size: 0.8rem; color: rgba(255,255,255,0.22); transition: color 0.2s; }
+    .footer-btm-links a:hover { color: rgba(255,255,255,0.5); }
+
+    /* ═══════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .svc-card:nth-child(2n) { border-right: none; }
+      .svc-card:nth-child(3n) { border-right: 1px solid #DDD7CE; }
+      .svc-card:nth-last-child(-n+2) { border-bottom: none; }
+      .svc-card:nth-last-child(-n+3) { border-bottom: 1px solid #DDD7CE; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+      .process-steps::before { display: none; }
+      .testi-grid { grid-template-columns: 1fr 1fr; }
+      .testi-card:last-child { display: none; }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links, .nav-phone, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
+
+      .hero-content { padding-top: 8.5rem; }
+
+      .trust-inner { grid-template-columns: repeat(2, 1fr); }
+      .trust-item:nth-child(2)::after { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 220px 220px 180px;
+      }
+      .g-item:nth-child(1) { grid-row: span 1; }
+      .g-item:nth-child(4) { grid-column: span 1; }
+    }
+
+    @media (max-width: 640px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .svc-card { border-right: none !important; }
+      .svc-card:not(:last-child) { border-bottom: 1px solid #DDD7CE !important; }
+      .form-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 200px); }
+      .g-item:nth-child(4) { grid-column: span 1; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .testi-card:last-child { display: flex; }
+      .process-steps { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────────── -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">
+      <img src="logo.png" alt="Pina Painting & Remodeling" class="nav-logo-img" />
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="tel:3178283233" class="nav-phone">317-828-3233</a>
+      <a href="#contact" class="nav-cta">Free Estimate</a>
+    </div>
+
+    <button class="hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mob">
+    <a href="#services" onclick="closeMob()">Services</a>
+    <a href="#process" onclick="closeMob()">Our Process</a>
+    <a href="#gallery" onclick="closeMob()">Gallery</a>
+    <a href="#testimonials" onclick="closeMob()">Reviews</a>
+    <a href="#contact" onclick="closeMob()">Contact</a>
+    <div class="mobile-menu-actions">
+      <a href="tel:3178283233" class="mobile-menu-phone">317-828-3233</a>
+      <a href="#contact" class="btn btn-primary" onclick="closeMob()">Get Free Estimate</a>
+    </div>
+  </div>
+
+  <!-- ── Hero ───────────────────────────────────────────────── -->
+  <section id="hero">
+    <!-- Full-bleed before/after slider as background -->
+    <div class="ba-slider" id="baSlider">
+      <div class="ba-before">
+        <img src="afterimg.png" alt="Before — home exterior before painting" />
+      </div>
+      <div class="ba-after-wrap" id="baAfter">
+        <img id="baAfterImg" src="beforeimg.png" alt="After — home exterior after painting" />
+      </div>
+      <div class="ba-line" id="baLine">
+        <div class="ba-handle-outer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/><polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Labels are direct hero children — above the overlay, never buried -->
+    <span class="ba-label ba-label-b">Before</span>
+    <span class="ba-label ba-label-a">After</span>
+
+    <!-- Dark gradient overlay -->
+    <div class="hero-overlay"></div>
+
+    <!-- Content overlaid on top -->
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <span class="hero-badge-dot"></span>
+        Serving Indianapolis &amp; Surrounding Areas
+      </div>
+
+      <h1 class="hero-heading reveal rd1">
+        Transform Your Home with <em>Expert Craftsmanship</em>
+      </h1>
+
+      <p class="hero-sub reveal rd2">
+        Indianapolis's trusted painting &amp; remodeling specialists. Quality results, honest pricing, and guaranteed satisfaction on every project.
+      </p>
+
+      <div class="hero-ctas reveal rd3">
+        <a href="#contact" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Get Free Estimate
+        </a>
+        <a href="#gallery" class="btn btn-ghost-white">View Our Work</a>
+      </div>
+
+      <div class="hero-stars reveal rd4">
+        <div class="hero-stars-icons">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+        </div>
+        <div class="hero-stars-text">
+          <strong>5.0 rating</strong> · 500+ satisfied Indianapolis homeowners
+        </div>
+      </div>
+    </div>
+
+    <!-- Drag hint -->
+    <div class="hero-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+      Drag to compare
+    </div>
+  </section>
+
+  <!-- ── Trust Bar ──────────────────────────────────────────── -->
+  <section id="trust">
+    <div class="trust-inner">
+      <div class="trust-item reveal">
+        <div class="trust-num">500+</div>
+        <div class="trust-label">Projects Completed</div>
+      </div>
+      <div class="trust-item reveal rd1">
+        <div class="trust-num">15+</div>
+        <div class="trust-label">Years Experience</div>
+      </div>
+      <div class="trust-item reveal rd2">
+        <div class="trust-num">100%</div>
+        <div class="trust-label">Satisfaction Rate</div>
+      </div>
+      <div class="trust-item reveal rd3">
+        <div class="trust-num">5★</div>
+        <div class="trust-label">Average Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ──────────────────────────────────────────── -->
+  <section id="services" class="section-pad">
+    <div class="container">
+      <div class="services-head reveal">
+        <p class="section-kicker">What We Do</p>
+        <h2 class="section-title">Complete Home Improvement Services</h2>
+        <p class="section-body">From a fresh coat of paint to full remodeling — one call covers it all. We bring the skill and care your home deserves.</p>
+      </div>
+      <div class="services-grid">
+        <div class="svc-card reveal">
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/><path d="M9 21V9"/>
+          </svg>
+          <div class="svc-name">Indoor Painting</div>
+          <p class="svc-desc">Professional interior painting with premium paints, clean edge work, and a spotless finish on every room.</p>
+        </div>
+        <div class="svc-card reveal rd1">
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>
+          </svg>
+          <div class="svc-name">Outdoor Painting</div>
+          <p class="svc-desc">Weather-resistant exterior painting that protects your home and dramatically boosts curb appeal.</p>
+        </div>
+        <div class="svc-card reveal rd2">
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16"/><path d="M16 4v16"/><path d="M2 12h20"/>
+          </svg>
+          <div class="svc-name">Drywall Repair</div>
+          <p class="svc-desc">Seamless patching, skim coating, and full drywall installation — walls left smooth and paint-ready.</p>
+        </div>
+        <div class="svc-card reveal rd3">
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/>
+          </svg>
+          <div class="svc-name">Carpentry</div>
+          <p class="svc-desc">Custom trim, crown molding, door framing, and finish carpentry that adds lasting character to any space.</p>
+        </div>
+        <div class="svc-card reveal rd4">
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 3H3v18h18v-2"/><rect x="5" y="5" width="8" height="8"/><rect x="13" y="5" width="6" height="8"/><rect x="5" y="13" width="14" height="6"/>
+          </svg>
+          <div class="svc-name">Flooring</div>
+          <p class="svc-desc">Hardwood, laminate, tile, and LVP installation — beautiful, durable floors crafted to perfection.</p>
+        </div>
+        <div class="svc-card reveal rd5">
+          <svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+          </svg>
+          <div class="svc-name">Electrical &amp; Plumbing</div>
+          <p class="svc-desc">Reliable fixture installations, outlet work, pipe repairs, and utility upgrades by skilled professionals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Process ───────────────────────────────────────────── -->
+  <section id="process" class="section-pad">
+    <div class="container">
+      <div class="process-head reveal">
+        <p class="section-kicker">How It Works</p>
+        <h2 class="section-title section-title-white">Simple, Transparent Process</h2>
+        <p class="section-body">No surprises, no runaround. Here's exactly how we take your project from idea to finished reality.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="process-num">01</div>
+          <div class="process-step-title">Free Estimate</div>
+          <p class="process-step-body">We visit your home, assess the project, and provide a clear, itemized quote — at absolutely no cost to you.</p>
+        </div>
+        <div class="process-step reveal rd1">
+          <div class="process-num">02</div>
+          <div class="process-step-title">Plan &amp; Schedule</div>
+          <p class="process-step-body">We agree on scope, timeline, and materials. You'll know exactly what to expect before we lift a brush.</p>
+        </div>
+        <div class="process-step reveal rd2">
+          <div class="process-num">03</div>
+          <div class="process-step-title">Expert Execution</div>
+          <p class="process-step-body">Our team arrives on time, protects your space, and completes the work with precision and care every day.</p>
+        </div>
+        <div class="process-step reveal rd3">
+          <div class="process-num">04</div>
+          <div class="process-step-title">Final Walkthrough</div>
+          <p class="process-step-body">You inspect every detail with us. We don't leave until you're 100% satisfied with the result.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Why Us ─────────────────────────────────────────────── -->
+  <section id="why" class="section-pad">
+    <div class="container">
+      <div class="why-grid">
+        <div>
+          <p class="section-kicker reveal">Why Choose Us</p>
+          <h2 class="section-title reveal rd1">Why Homeowners Trust Pina Painting</h2>
+          <ul class="why-features">
+            <li class="why-feat reveal rd2">
+              <div class="why-feat-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="why-feat-body">
+                <strong>Licensed &amp; Fully Insured</strong>
+                <span>We carry full liability insurance and workers' comp on every job — your home and investment are always protected.</span>
+              </div>
+            </li>
+            <li class="why-feat reveal rd3">
+              <div class="why-feat-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div class="why-feat-body">
+                <strong>Free Estimates — No Obligation</strong>
+                <span>We visit your property and provide a detailed quote at no cost. No pressure, no hidden fees.</span>
+              </div>
+            </li>
+            <li class="why-feat reveal rd4">
+              <div class="why-feat-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              </div>
+              <div class="why-feat-body">
+                <strong>Clean, Respectful Workmanship</strong>
+                <span>We protect your belongings, keep jobsites tidy, and leave your home spotless — every single day.</span>
+              </div>
+            </li>
+            <li class="why-feat reveal rd5">
+              <div class="why-feat-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="why-feat-body">
+                <strong>Honest, Competitive Pricing</strong>
+                <span>Fair prices with no surprises — you'll always know exactly what you're paying for before we start.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="why-card reveal rd2">
+          <div class="why-card-kicker">Get Started Today</div>
+          <div class="why-card-phone">317-828-3233</div>
+          <div class="why-card-sub">Call for a free, no-pressure estimate</div>
+          <a href="tel:3178283233" class="why-card-cta">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 12.1 19.79 19.79 0 0 1 1.27 3.47 2 2 0 0 1 3.26 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+            Call Now — It's Free
+          </a>
+          <div class="why-card-div"></div>
+          <div class="why-card-hours">
+            <strong>Available 7 Days a Week</strong>
+            Mon – Sat: 7:00 AM – 7:00 PM
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Gallery ────────────────────────────────────────────── -->
+  <section id="gallery" class="section-pad">
+    <div class="container">
+      <div class="gallery-head reveal">
+        <p class="section-kicker">Portfolio</p>
+        <h2 class="section-title">Our Work Speaks for Itself</h2>
+        <p class="section-body">Every project is completed with the same precision and care — from single rooms to complete home transformations.</p>
+      </div>
+      <div class="gallery-grid">
+        <!-- Slot 1: tall, real after image -->
+        <div class="g-item reveal">
+          <div class="g-tile">
+            <img src="afterimg.png" alt="Home exterior after paint" />
+            <span class="g-label">Featured Project</span>
+            <span class="g-title">Exterior Repaint — Indianapolis</span>
+          </div>
+        </div>
+        <!-- Slot 2 -->
+        <div class="g-item reveal rd1">
+          <div class="g-tile g-bg-2">
+            <span class="g-label">Interior Painting</span>
+            <span class="g-title">Living Room Transformation</span>
+          </div>
+        </div>
+        <!-- Slot 3 -->
+        <div class="g-item reveal rd2">
+          <div class="g-tile g-bg-3">
+            <span class="g-label">Flooring</span>
+            <span class="g-title">Hardwood Installation</span>
+          </div>
+        </div>
+        <!-- Slot 4: wide, real before image -->
+        <div class="g-item reveal rd3">
+          <div class="g-tile">
+            <img src="beforeimg.png" alt="Exterior before painting" />
+            <span class="g-label">Before Transformation</span>
+            <span class="g-title">Brick Exterior — Before</span>
+          </div>
+        </div>
+        <!-- Slot 5 -->
+        <div class="g-item reveal rd4">
+          <div class="g-tile g-bg-4">
+            <span class="g-label">Drywall &amp; Carpentry</span>
+            <span class="g-title">Custom Trim &amp; Smooth Walls</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Testimonials ───────────────────────────────────────── -->
+  <section id="testimonials" class="section-pad">
+    <div class="container">
+      <div class="testi-head reveal">
+        <p class="section-kicker">Client Reviews</p>
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-body">Real words from real Indianapolis homeowners — the kind of trust that only comes from consistent quality.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card reveal">
+          <div class="testi-stars">
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+          </div>
+          <p class="testi-quote">"Pina completely transformed our home's exterior. The attention to detail was incredible — they even touched up spots I hadn't noticed. Best contractor experience we've had."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">M</div>
+            <div>
+              <div class="testi-name">Michael R.</div>
+              <div class="testi-location">Fishers, IN</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal rd1">
+          <div class="testi-stars">
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+          </div>
+          <p class="testi-quote">"They repainted our entire first floor and repaired the drywall in two bedrooms. On time, on budget, and spotlessly clean every day. I won't use anyone else."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">S</div>
+            <div>
+              <div class="testi-name">Sarah T.</div>
+              <div class="testi-location">Carmel, IN</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal rd2">
+          <div class="testi-stars">
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 5.26 5.76.5-4.33 3.94 1.39 5.7L10 13.27l-5.21 3.13 1.39-5.7L1.85 6.76l5.76-.5L10 1z"/></svg>
+          </div>
+          <p class="testi-quote">"Had them do flooring and interior painting — the quality was exceptional. They worked quickly without sacrificing anything. The house looks brand new. Highly recommend."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">D</div>
+            <div>
+              <div class="testi-name">David L.</div>
+              <div class="testi-location">Greenwood, IN</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Banner ─────────────────────────────────────────── -->
+  <section id="cta-banner">
+    <h2 class="cta-banner-title reveal">Ready to Transform Your Home?</h2>
+    <p class="cta-banner-sub reveal rd1">Join hundreds of satisfied Indianapolis homeowners. Your dream home is one call away.</p>
+    <div class="cta-banner-actions reveal rd2">
+      <a href="tel:3178283233" class="btn btn-white-solid">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 12.1 19.79 19.79 0 0 1 1.27 3.47 2 2 0 0 1 3.26 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+        Call 317-828-3233
+      </a>
+      <a href="#contact" class="cta-banner-link">or request a free estimate online →</a>
+    </div>
+  </section>
+
+  <!-- ── Contact ────────────────────────────────────────────── -->
+  <section id="contact" class="section-pad">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <div class="contact-form-head reveal">
+            <p class="section-kicker">Get in Touch</p>
+            <h2 class="section-title">Request Your Free Estimate</h2>
+            <p class="section-body">Tell us about your project and we'll respond within one business day with a detailed, no-obligation quote.</p>
+          </div>
+          <form id="estimateForm" novalidate class="reveal rd1">
+            <div class="form-grid">
+              <div class="fg">
+                <label for="fname">First Name *</label>
+                <input type="text" id="fname" placeholder="John" required />
+              </div>
+              <div class="fg">
+                <label for="lname">Last Name *</label>
+                <input type="text" id="lname" placeholder="Smith" required />
+              </div>
+              <div class="fg">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" placeholder="(317) 555-0100" required />
+              </div>
+              <div class="fg">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="john@example.com" />
+              </div>
+              <div class="fg full">
+                <label for="service">Service Needed *</label>
+                <select id="service" required>
+                  <option value="">— Select a service —</option>
+                  <option>Indoor Painting</option>
+                  <option>Outdoor Painting</option>
+                  <option>Drywall Repair</option>
+                  <option>Carpentry</option>
+                  <option>Flooring</option>
+                  <option>Electrical &amp; Plumbing</option>
+                  <option>Multiple Services</option>
+                </select>
+              </div>
+              <div class="fg full">
+                <label for="msg">Project Details</label>
+                <textarea id="msg" placeholder="Describe your project — size, scope, timeline, any specific requirements..."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="form-submit">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send My Request
+            </button>
+            <div class="form-success" id="formSuccess">✓ Thank you! We'll be in touch within one business day.</div>
+          </form>
+        </div>
+
+        <div class="reveal rd2">
+          <div class="contact-info">
+            <div class="contact-info-title">Contact Information</div>
+
+            <div class="cinfo-row">
+              <div class="cinfo-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 12.1 19.79 19.79 0 0 1 1.27 3.47 2 2 0 0 1 3.26 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+              </div>
+              <div>
+                <div class="cinfo-lbl">Phone</div>
+                <div class="cinfo-val"><a href="tel:3178283233">317-828-3233</a></div>
+                <div class="cinfo-sub">Call or text anytime</div>
+              </div>
+            </div>
+
+            <div class="cinfo-row">
+              <div class="cinfo-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.05 11.5 7.54 11.93a.74.74 0 0 0 .93 0C12.96 21.5 20 15.4 20 10a8 8 0 0 0-8-8z"/></svg>
+              </div>
+              <div>
+                <div class="cinfo-lbl">Service Area</div>
+                <div class="cinfo-val">Indianapolis &amp; Surrounding</div>
+                <div class="cinfo-sub">Serving all of Central Indiana</div>
+              </div>
+            </div>
+
+            <div class="cinfo-row">
+              <div class="cinfo-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="cinfo-lbl">Hours</div>
+                <div class="cinfo-val">Mon – Sat: 7AM – 7PM</div>
+                <div class="cinfo-sub">Sunday by appointment</div>
+              </div>
+            </div>
+
+            <div class="map-ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.05 11.5 7.54 11.93a.74.74 0 0 0 .93 0C12.96 21.5 20 15.4 20 10a8 8 0 0 0-8-8z"/></svg>
+              <span>Indianapolis, Indiana</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div>
+        <img src="logo.png" alt="Pina Painting & Remodeling" style="height:80px;width:auto;opacity:0.9;margin-bottom:1rem;" />
+        <p class="footer-desc">Indianapolis's trusted home improvement specialists. Quality craftsmanship, honest pricing, and guaranteed satisfaction — every single project.</p>
+      </div>
+      <div>
+        <div class="footer-col-head">Services</div>
+        <ul class="footer-links">
+          <li><a href="#services">Indoor Painting</a></li>
+          <li><a href="#services">Outdoor Painting</a></li>
+          <li><a href="#services">Drywall Repair</a></li>
+          <li><a href="#services">Carpentry</a></li>
+          <li><a href="#services">Flooring</a></li>
+          <li><a href="#services">Electrical &amp; Plumbing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Contact</div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-lbl">Phone</div>
+          <div class="footer-contact-val"><a href="tel:3178283233">317-828-3233</a></div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-lbl">Service Area</div>
+          <div class="footer-contact-val">Indianapolis, IN &amp; Surrounding</div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-lbl">Hours</div>
+          <div class="footer-contact-val">Mon – Sat, 7AM – 7PM</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Pina Painting &amp; Remodeling. All rights reserved.</span>
+      <div class="footer-btm-links">
+        <a href="#services">Services</a>
+        <a href="#contact">Free Estimate</a>
+        <a href="tel:3178283233">317-828-3233</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Scripts ─────────────────────────────────────────────── -->
+  <script>
+    /* ── Nav scroll ──────────────────────────────────────────── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    /* ── Mobile menu ─────────────────────────────────────────── */
+    const ham = document.getElementById('ham');
+    const mob = document.getElementById('mob');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      mob.classList.toggle('open');
+    });
+    function closeMob() {
+      ham.classList.remove('open');
+      mob.classList.remove('open');
+    }
+
+    /* ── Before/After Slider ─────────────────────────────────── */
+    (function () {
+      const slider   = document.getElementById('baSlider');
+      const after    = document.getElementById('baAfter');
+      const line     = document.getElementById('baLine');
+      const afterImg = document.getElementById('baAfterImg');
+      let dragging = false;
+
+      // Size the after image to the full slider — NOT the clipped wrapper.
+      // Without this, object-fit:cover zooms in as the wrapper gets narrower.
+      function syncAfterImg() {
+        const r = slider.getBoundingClientRect();
+        afterImg.style.width  = r.width  + 'px';
+        afterImg.style.height = r.height + 'px';
+      }
+      syncAfterImg();
+      window.addEventListener('resize', syncAfterImg, { passive: true });
+
+      function apply(v) {
+        const pct = Math.max(0.03, Math.min(0.97, v));
+        const p = (pct * 100).toFixed(2) + '%';
+        after.style.width = p;
+        line.style.left   = p;
+      }
+
+      function fromClientX(clientX) {
+        const r = slider.getBoundingClientRect();
+        apply((clientX - r.left) / r.width);
+      }
+
+      slider.addEventListener('mousedown', e => { dragging = true; fromClientX(e.clientX); e.preventDefault(); });
+      window.addEventListener('mousemove', e => { if (dragging) fromClientX(e.clientX); });
+      window.addEventListener('mouseup',   () => { dragging = false; });
+
+      slider.addEventListener('touchstart', e => { dragging = true; fromClientX(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchmove',  e => { if (dragging) fromClientX(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchend',   () => { dragging = false; });
+    })();
+
+    /* ── Scroll reveal ───────────────────────────────────────── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Hero reveals on load
+    setTimeout(() => {
+      document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+    }, 100);
+
+    /* ── Form ────────────────────────────────────────────────── */
+    document.getElementById('estimateForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let ok = true;
+      ['fname','lname','phone','service'].forEach(id => {
+        const el = document.getElementById(id);
+        el.classList.remove('err');
+        if (!el.value.trim()) { el.classList.add('err'); ok = false; }
+      });
+      const em = document.getElementById('email');
+      if (em.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)) {
+        em.classList.add('err'); ok = false;
+      }
+      if (ok) {
+        const suc = document.getElementById('formSuccess');
+        suc.style.display = 'block';
+        this.reset();
+        setTimeout(() => { suc.style.display = 'none'; }, 7000);
+      }
+    });
+    document.querySelectorAll('.fg input, .fg select, .fg textarea').forEach(el => {
+      el.addEventListener('input', () => el.classList.remove('err'));
+    });
+  </script>
+</body>
+</html>
