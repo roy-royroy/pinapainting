@@ -138,7 +138,8 @@
     }
     .nav-links a {
       font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.06em;
-      text-transform: uppercase; color: rgba(255,255,255,0.65);
+      text-transform: uppercase; color: rgba(255,255,255,0.92);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.55);
       transition: color 0.2s; position: relative;
     }
     .nav-links a::after {
@@ -153,7 +154,8 @@
     .nav-right { display: flex; align-items: center; gap: 1.25rem; flex-shrink: 0; }
     .nav-phone {
       font-size: 0.875rem; font-weight: 600;
-      color: rgba(255,255,255,0.8); letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.95); letter-spacing: 0.02em;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.55);
     }
     .nav-phone:hover { color: var(--amber-lt); }
     .nav-cta {
@@ -236,6 +238,7 @@
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
       background:
         linear-gradient(to top,  rgba(10,18,28,0.92) 0%, rgba(10,18,28,0.55) 40%, rgba(10,18,28,0.2) 75%, transparent 100%),
+        linear-gradient(to bottom, rgba(10,18,28,0.6) 0%, transparent 20%),
         linear-gradient(to right, rgba(10,18,28,0.3) 0%, transparent 60%);
     }
 
