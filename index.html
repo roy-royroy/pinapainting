@@ -124,12 +124,16 @@
 
     .nav-logo { display: flex; align-items: center; flex-shrink: 0; }
     .nav-logo-img {
-      height: 96px; width: auto;
-      transition: opacity 0.2s;
+      height: 80px; width: auto;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.5)) drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+      transition: filter 0.2s, opacity 0.2s;
     }
-    .nav-logo:hover .nav-logo-img { opacity: 0.85; }
+    .nav-logo:hover .nav-logo-img {
+      filter: drop-shadow(0 0 14px rgba(255,255,255,0.75)) drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+    }
 
     .nav-links {
+      position: absolute; left: 50%; transform: translateX(-50%);
       display: flex; align-items: center; gap: 2.75rem;
     }
     .nav-links a {
@@ -486,39 +490,42 @@
     .why-feat-body span { font-size: 0.9375rem; line-height: 1.6; color: var(--stone); }
 
     .why-card {
-      background: var(--navy); border-radius: 6px;
-      padding: clamp(2.25rem, 3.5vw, 3.25rem); text-align: center;
-      position: relative; overflow: hidden;
+      border-radius: 6px; overflow: hidden;
+      position: relative; min-height: 420px;
+      display: flex; align-items: flex-end;
     }
-    .why-card::before {
-      content: ''; position: absolute;
-      top: -80px; right: -80px;
-      width: 240px; height: 240px; border-radius: 50%;
-      background: rgba(200,114,10,0.1);
+    .why-card-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+    }
+    .why-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,18,28,0.88) 0%, rgba(10,18,28,0.3) 55%, transparent 100%);
+    }
+    .why-card-content {
+      position: relative; z-index: 2;
+      padding: clamp(1.75rem, 3vw, 2.5rem); text-align: center; width: 100%;
     }
     .why-card-kicker {
       font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--amber-lt);
-      margin-bottom: 1rem; position: relative;
+      text-transform: uppercase; color: var(--amber-lt); margin-bottom: 0.875rem;
     }
     .why-card-phone {
       font-family: var(--ff-head);
       font-size: clamp(1.875rem, 3vw, 2.625rem);
-      font-weight: 600; color: #fff; letter-spacing: -0.01em;
-      margin-bottom: 0.375rem; position: relative;
+      font-weight: 600; color: #fff; letter-spacing: -0.01em; margin-bottom: 0.375rem;
     }
-    .why-card-sub { font-size: 0.9rem; color: rgba(255,255,255,0.4); margin-bottom: 2rem; position: relative; }
+    .why-card-sub { font-size: 0.9rem; color: rgba(255,255,255,0.55); margin-bottom: 1.5rem; }
     .why-card-cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.875rem 2.25rem; background: var(--amber); color: #fff;
       font-size: 0.9375rem; font-weight: 600; border-radius: 3px;
       transition: background 0.2s, transform 0.15s;
-      position: relative;
     }
     .why-card-cta:hover { background: var(--amber-lt); transform: translateY(-2px); }
-    .why-card-div { width: 40px; height: 1px; background: rgba(255,255,255,0.12); margin: 2rem auto; position: relative; }
-    .why-card-hours { font-size: 0.875rem; color: rgba(255,255,255,0.35); position: relative; }
-    .why-card-hours strong { color: rgba(255,255,255,0.6); font-weight: 600; display: block; margin-bottom: 0.25rem; }
+    .why-card-div { width: 40px; height: 1px; background: rgba(255,255,255,0.2); margin: 1.5rem auto; }
+    .why-card-hours { font-size: 0.875rem; color: rgba(255,255,255,0.45); }
+    .why-card-hours strong { color: rgba(255,255,255,0.75); font-weight: 600; display: block; margin-bottom: 0.25rem; }
 
     /* ═══════════════════════════════════════════════════════════
        GALLERY
@@ -530,12 +537,12 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 260px 200px;
+      grid-auto-rows: 220px;
       gap: 10px;
     }
     .g-item { border-radius: 5px; overflow: hidden; position: relative; }
     .g-item:nth-child(1) { grid-row: span 2; }
-    .g-item:nth-child(4) { grid-column: span 2; }
+    .g-item:nth-child(7) { grid-column: span 2; }
 
     .g-tile {
       width: 100%; height: 100%;
@@ -670,6 +677,22 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237D7166' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;
     }
+    .service-checks {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;
+      padding: 0.875rem 1rem; border: 1.5px solid #CEC7BC; border-radius: 3px;
+      background: #fff;
+    }
+    .service-checks.err { border-color: #D94040; }
+    .check-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.9rem; color: var(--ink); cursor: pointer;
+      padding: 0.25rem 0;
+    }
+    .check-item input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: var(--amber);
+      cursor: pointer; flex-shrink: 0;
+    }
+
     .form-submit {
       width: 100%; padding: 0.9375rem; margin-top: 0.25rem;
       background: var(--amber); color: #fff;
@@ -705,13 +728,6 @@
     .cinfo-val { font-size: 1.0625rem; font-weight: 600; color: var(--navy); }
     .cinfo-sub { font-size: 0.875rem; color: var(--stone); margin-top: 0.125rem; }
 
-    .map-ph {
-      margin-top: 1.875rem; border-radius: 5px; overflow: hidden;
-      height: 175px; background: linear-gradient(135deg, #E5E0D8 0%, #D5CEC4 100%);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;
-    }
-    .map-ph svg { width: 40px; height: 40px; color: #B8AFA6; }
-    .map-ph span { font-size: 0.8rem; font-weight: 600; color: var(--stone); }
 
     /* ═══════════════════════════════════════════════════════════
        FOOTER
@@ -789,10 +805,10 @@
       .footer-top { grid-template-columns: 1fr 1fr; }
       .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: 220px 220px 180px;
+        grid-auto-rows: 200px;
       }
-      .g-item:nth-child(1) { grid-row: span 1; }
-      .g-item:nth-child(4) { grid-column: span 1; }
+      .g-item:nth-child(1) { grid-row: span 2; }
+      .g-item:nth-child(7) { grid-column: span 2; }
     }
 
     @media (max-width: 640px) {
@@ -800,8 +816,9 @@
       .svc-card { border-right: none !important; }
       .svc-card:not(:last-child) { border-bottom: 1px solid #DDD7CE !important; }
       .form-grid { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 200px); }
-      .g-item:nth-child(4) { grid-column: span 1; }
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+      .g-item:nth-child(1) { grid-row: span 1; }
+      .g-item:nth-child(7) { grid-column: span 1; }
       .testi-grid { grid-template-columns: 1fr; }
       .testi-card:last-child { display: flex; }
       .process-steps { grid-template-columns: 1fr; }
@@ -1077,17 +1094,21 @@
         </div>
 
         <div class="why-card reveal rd2">
-          <div class="why-card-kicker">Get Started Today</div>
-          <div class="why-card-phone">317-828-3233</div>
-          <div class="why-card-sub">Call for a free, no-pressure estimate</div>
-          <a href="tel:3178283233" class="why-card-cta">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 12.1 19.79 19.79 0 0 1 1.27 3.47 2 2 0 0 1 3.26 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
-            Call Now — It's Free
-          </a>
-          <div class="why-card-div"></div>
-          <div class="why-card-hours">
-            <strong>Available 7 Days a Week</strong>
-            Mon – Sat: 7:00 AM – 7:00 PM
+          <img class="why-card-img" src="house.jpg" alt="Completed home exterior by Pina Painting" />
+          <div class="why-card-overlay"></div>
+          <div class="why-card-content">
+            <div class="why-card-kicker">Get Started Today</div>
+            <div class="why-card-phone">317-828-3233</div>
+            <div class="why-card-sub">Call for a free, no-pressure estimate</div>
+            <a href="tel:3178283233" class="why-card-cta">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 12.1 19.79 19.79 0 0 1 1.27 3.47 2 2 0 0 1 3.26 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+              Call Now — It's Free
+            </a>
+            <div class="why-card-div"></div>
+            <div class="why-card-hours">
+              <strong>Available 7 Days a Week</strong>
+              Mon – Sat: 7:00 AM – 7:00 PM
+            </div>
           </div>
         </div>
       </div>
@@ -1103,41 +1124,84 @@
         <p class="section-body">Every project is completed with the same precision and care — from single rooms to complete home transformations.</p>
       </div>
       <div class="gallery-grid">
-        <!-- Slot 1: tall, real after image -->
+        <!-- 1 — tall featured -->
         <div class="g-item reveal">
           <div class="g-tile">
-            <img src="afterimg.png" alt="Home exterior after paint" />
+            <img src="gallery/exteriorimg1.jpg" alt="Exterior home repaint" />
             <span class="g-label">Featured Project</span>
-            <span class="g-title">Exterior Repaint — Indianapolis</span>
+            <span class="g-title">Exterior Transformation</span>
           </div>
         </div>
-        <!-- Slot 2 -->
+        <!-- 2 — before (paired with 3) -->
         <div class="g-item reveal rd1">
-          <div class="g-tile g-bg-2">
-            <span class="g-label">Interior Painting</span>
-            <span class="g-title">Living Room Transformation</span>
+          <div class="g-tile">
+            <img src="gallery/beforeimg.jpg" alt="Exterior before painting" />
+            <span class="g-label">Before</span>
+            <span class="g-title">Exterior — Before</span>
           </div>
         </div>
-        <!-- Slot 3 -->
+        <!-- 3 — after (paired with 2) -->
         <div class="g-item reveal rd2">
-          <div class="g-tile g-bg-3">
+          <div class="g-tile">
+            <img src="gallery/afterimg1.jpg" alt="Exterior after painting" />
+            <span class="g-label">After</span>
+            <span class="g-title">Exterior — After</span>
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="g-item reveal rd3">
+          <div class="g-tile">
+            <img src="gallery/interiorimg1.jpg" alt="Interior living room painting" />
+            <span class="g-label">Interior Painting</span>
+            <span class="g-title">Living Room Refresh</span>
+          </div>
+        </div>
+        <!-- 5 -->
+        <div class="g-item reveal rd4">
+          <div class="g-tile">
+            <img src="gallery/interiorimg2.jpg" alt="Interior bedroom painting" />
+            <span class="g-label">Interior Painting</span>
+            <span class="g-title">Bedroom Transformation</span>
+          </div>
+        </div>
+        <!-- 6 — before (paired with 7) -->
+        <div class="g-item reveal rd1">
+          <div class="g-tile">
+            <img src="gallery/beforeimg2.jpg" alt="Home exterior before remodeling" />
+            <span class="g-label">Before</span>
+            <span class="g-title">Home Exterior — Before</span>
+          </div>
+        </div>
+        <!-- 7 — wide after (paired with 6) -->
+        <div class="g-item reveal rd2">
+          <div class="g-tile">
+            <img src="gallery/afterimg2.jpg" alt="Home exterior after remodeling" style="object-position: center bottom;" />
+            <span class="g-label">After</span>
+            <span class="g-title">Home Exterior — After</span>
+          </div>
+        </div>
+        <!-- 8 -->
+        <div class="g-item reveal rd3">
+          <div class="g-tile">
+            <img src="gallery/floorimg1.jpg" alt="Hardwood flooring installation" />
             <span class="g-label">Flooring</span>
             <span class="g-title">Hardwood Installation</span>
           </div>
         </div>
-        <!-- Slot 4: wide, real before image -->
-        <div class="g-item reveal rd3">
+        <!-- 9 — before (paired with 10) -->
+        <div class="g-item reveal rd4">
           <div class="g-tile">
-            <img src="beforeimg.png" alt="Exterior before painting" />
-            <span class="g-label">Before Transformation</span>
-            <span class="g-title">Brick Exterior — Before</span>
+            <img src="gallery/beforeimg4.jpg" alt="Home before full repaint" />
+            <span class="g-label">Before</span>
+            <span class="g-title">Full Home Repaint — Before</span>
           </div>
         </div>
-        <!-- Slot 5 -->
-        <div class="g-item reveal rd4">
-          <div class="g-tile g-bg-4">
-            <span class="g-label">Drywall &amp; Carpentry</span>
-            <span class="g-title">Custom Trim &amp; Smooth Walls</span>
+        <!-- 10 — after (paired with 9) -->
+        <div class="g-item reveal rd1">
+          <div class="g-tile">
+            <img src="gallery/afterimg4.jpg" alt="After full home repaint" />
+            <span class="g-label">After</span>
+            <span class="g-title">Full Home Repaint — After</span>
           </div>
         </div>
       </div>
@@ -1237,39 +1301,37 @@
             <div class="form-grid">
               <div class="fg">
                 <label for="fname">First Name *</label>
-                <input type="text" id="fname" placeholder="John" required />
+                <input type="text" id="fname" name="first_name" placeholder="John" required />
               </div>
               <div class="fg">
                 <label for="lname">Last Name *</label>
-                <input type="text" id="lname" placeholder="Smith" required />
+                <input type="text" id="lname" name="last_name" placeholder="Smith" required />
               </div>
               <div class="fg">
                 <label for="phone">Phone Number *</label>
-                <input type="tel" id="phone" placeholder="(317) 555-0100" required />
+                <input type="tel" id="phone" name="phone" placeholder="(317) 555-0100" required />
               </div>
               <div class="fg">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="john@example.com" />
+                <input type="email" id="email" name="email" placeholder="john@example.com" />
               </div>
               <div class="fg full">
-                <label for="service">Service Needed *</label>
-                <select id="service" required>
-                  <option value="">— Select a service —</option>
-                  <option>Indoor Painting</option>
-                  <option>Outdoor Painting</option>
-                  <option>Drywall Repair</option>
-                  <option>Carpentry</option>
-                  <option>Flooring</option>
-                  <option>Electrical &amp; Plumbing</option>
-                  <option>Multiple Services</option>
-                </select>
+                <label>Services Needed * <span id="service-err" style="color:#D94040;font-weight:400;display:none;">— please select at least one</span></label>
+                <div class="service-checks" id="serviceChecks">
+                  <label class="check-item"><input type="checkbox" name="service" value="Indoor Painting" /><span>Indoor Painting</span></label>
+                  <label class="check-item"><input type="checkbox" name="service" value="Outdoor Painting" /><span>Outdoor Painting</span></label>
+                  <label class="check-item"><input type="checkbox" name="service" value="Drywall Repair" /><span>Drywall Repair</span></label>
+                  <label class="check-item"><input type="checkbox" name="service" value="Carpentry" /><span>Carpentry</span></label>
+                  <label class="check-item"><input type="checkbox" name="service" value="Flooring" /><span>Flooring</span></label>
+                  <label class="check-item"><input type="checkbox" name="service" value="Electrical &amp; Plumbing" /><span>Electrical &amp; Plumbing</span></label>
+                </div>
               </div>
               <div class="fg full">
                 <label for="msg">Project Details</label>
-                <textarea id="msg" placeholder="Describe your project — size, scope, timeline, any specific requirements..."></textarea>
+                <textarea id="msg" name="message" placeholder="Describe your project — size, scope, timeline, any specific requirements..."></textarea>
               </div>
             </div>
-            <button type="submit" class="form-submit">
+            <button type="submit" class="form-submit" id="formBtn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               Send My Request
             </button>
@@ -1314,10 +1376,6 @@
               </div>
             </div>
 
-            <div class="map-ph">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.05 11.5 7.54 11.93a.74.74 0 0 0 .93 0C12.96 21.5 20 15.4 20 10a8 8 0 0 0-8-8z"/></svg>
-              <span>Indianapolis, Indiana</span>
-            </div>
           </div>
         </div>
       </div>
@@ -1328,7 +1386,7 @@
   <footer id="footer">
     <div class="footer-top">
       <div>
-        <img src="logo.png" alt="Pina Painting & Remodeling" style="height:80px;width:auto;opacity:0.9;margin-bottom:1rem;" />
+        <img src="logo.png" alt="Pina Painting & Remodeling" class="nav-logo-img" style="margin-bottom:1.25rem;" />
         <p class="footer-desc">Indianapolis's trusted home improvement specialists. Quality craftsmanship, honest pricing, and guaranteed satisfaction — every single project.</p>
       </div>
       <div>
@@ -1359,7 +1417,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">© 2025 Pina Painting &amp; Remodeling. All rights reserved.</span>
+      <span class="footer-copy">© 2024 Pina Painting &amp; Remodeling. All rights reserved.</span>
       <div class="footer-btm-links">
         <a href="#services">Services</a>
         <a href="#contact">Free Estimate</a>
@@ -1440,10 +1498,12 @@
     }, 100);
 
     /* ── Form ────────────────────────────────────────────────── */
-    document.getElementById('estimateForm').addEventListener('submit', function(e) {
+    document.getElementById('estimateForm').addEventListener('submit', async function(e) {
       e.preventDefault();
+
+      // Client-side validation
       let ok = true;
-      ['fname','lname','phone','service'].forEach(id => {
+      ['fname','lname','phone'].forEach(id => {
         const el = document.getElementById(id);
         el.classList.remove('err');
         if (!el.value.trim()) { el.classList.add('err'); ok = false; }
@@ -1452,15 +1512,52 @@
       if (em.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)) {
         em.classList.add('err'); ok = false;
       }
-      if (ok) {
-        const suc = document.getElementById('formSuccess');
-        suc.style.display = 'block';
-        this.reset();
-        setTimeout(() => { suc.style.display = 'none'; }, 7000);
+      const checks = document.querySelectorAll('#serviceChecks input:checked');
+      const checksWrap = document.getElementById('serviceChecks');
+      const serviceErr = document.getElementById('service-err');
+      if (checks.length === 0) {
+        checksWrap.classList.add('err'); serviceErr.style.display = 'inline'; ok = false;
+      } else {
+        checksWrap.classList.remove('err'); serviceErr.style.display = 'none';
+      }
+      if (!ok) return;
+
+      // Submit to Formspree
+      const btn = document.getElementById('formBtn');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch('https://formspree.io/f/myklyorj', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(this)
+        });
+
+        if (res.ok) {
+          const suc = document.getElementById('formSuccess');
+          suc.style.display = 'block';
+          this.reset();
+          setTimeout(() => { suc.style.display = 'none'; }, 7000);
+        } else {
+          alert('Something went wrong. Please call us at 317-828-3233.');
+        }
+      } catch {
+        alert('Network error. Please call us at 317-828-3233.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send My Request';
       }
     });
-    document.querySelectorAll('.fg input, .fg select, .fg textarea').forEach(el => {
+
+    document.querySelectorAll('.fg input[type="text"], .fg input[type="tel"], .fg input[type="email"], .fg textarea').forEach(el => {
       el.addEventListener('input', () => el.classList.remove('err'));
+    });
+    document.querySelectorAll('#serviceChecks input').forEach(cb => {
+      cb.addEventListener('change', () => {
+        document.getElementById('serviceChecks').classList.remove('err');
+        document.getElementById('service-err').style.display = 'none';
+      });
     });
   </script>
 </body>
