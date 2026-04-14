@@ -332,9 +332,13 @@
       font-family: var(--ff-body); font-size: 0.75rem;
       font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
       padding: 0.5rem 1.125rem; border-radius: 3px;
-      pointer-events: none;
+      pointer-events: auto; cursor: pointer;
       box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      user-select: none;
     }
+    .ba-label:hover { transform: scale(1.06); box-shadow: 0 4px 18px rgba(0,0,0,0.45); }
+    .ba-label:active { transform: scale(0.97); }
     .ba-label-b { left: 1.75rem; background: rgba(15, 25, 40, 0.88); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
     .ba-label-a { right: 1.75rem; background: var(--amber); color: #fff; }
 
@@ -1155,8 +1159,8 @@
         <div class="g-item reveal rd3">
           <div class="g-tile">
             <img src="gallery/interiorimg1.jpg" alt="Interior living room painting" />
-            <span class="g-label">Interior Painting</span>
-            <span class="g-title">Living Room Refresh</span>
+            <span class="g-label">Commercial Painting</span>
+            <span class="g-title">Commercial Building Refresh</span>
           </div>
         </div>
         <!-- 5 -->
@@ -1164,7 +1168,7 @@
           <div class="g-tile">
             <img src="gallery/interiorimg2.jpg" alt="Interior bedroom painting" />
             <span class="g-label">Interior Painting</span>
-            <span class="g-title">Bedroom Transformation</span>
+            <span class="g-title">Living Room Refresh</span>
           </div>
         </div>
         <!-- 6 — before (paired with 7) -->
@@ -1196,7 +1200,7 @@
           <div class="g-tile">
             <img src="gallery/beforeimg4.jpg" alt="Home before full repaint" />
             <span class="g-label">Before</span>
-            <span class="g-title">Full Home Repaint — Before</span>
+            <span class="g-title">Full Fence Repaint — Before</span>
           </div>
         </div>
         <!-- 10 — after (paired with 9) -->
@@ -1204,7 +1208,7 @@
           <div class="g-tile">
             <img src="gallery/afterimg4.jpg" alt="After full home repaint" />
             <span class="g-label">After</span>
-            <span class="g-title">Full Home Repaint — After</span>
+            <span class="g-title">Full Fence Repaint — After</span>
           </div>
         </div>
       </div>
@@ -1486,6 +1490,21 @@
       slider.addEventListener('touchstart', e => { dragging = true; fromClientX(e.touches[0].clientX); }, { passive: true });
       window.addEventListener('touchmove',  e => { if (dragging) fromClientX(e.touches[0].clientX); }, { passive: true });
       window.addEventListener('touchend',   () => { dragging = false; });
+
+      // Snap slider on label click
+      function snapTo(target, duration) {
+        const start = parseFloat(after.style.width) || 50;
+        const startTime = performance.now();
+        function step(now) {
+          const t = Math.min((now - startTime) / duration, 1);
+          const ease = 1 - Math.pow(1 - t, 3);
+          apply(start / 100 + (target - start / 100) * ease);
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      document.querySelector('.ba-label-b').addEventListener('click', () => snapTo(0.03, 500));
+      document.querySelector('.ba-label-a').addEventListener('click', () => snapTo(0.97, 500));
     })();
 
     /* ── Scroll reveal ───────────────────────────────────────── */
