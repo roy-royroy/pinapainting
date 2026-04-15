@@ -855,9 +855,11 @@
       }
       .hero-ctas .btn { width: 100%; justify-content: center; min-height: 52px; }
       .hero-hint { display: none; }
-      .ba-label { top: 5rem; padding: 0.375rem 0.875rem; font-size: 0.6875rem; }
+      .ba-label { top: 8.5rem; padding: 0.375rem 0.875rem; font-size: 0.6875rem; }
       .ba-label-b { left: 1rem; }
       .ba-label-a { right: 1rem; }
+      /* Logo overflows nav on mobile — prevent it blocking hero taps */
+      .nav-logo { pointer-events: none; }
 
       /* Trust bar — 2×2 grid */
       .trust-inner {
